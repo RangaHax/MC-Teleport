@@ -1,0 +1,34 @@
+name: MC-Teleport
+main: mcteleport.MCTeleport
+version: 1.0
+
+commands:
+ spawn:
+  description: Teleport to spawn
+  usage: /spawn
+  permission: hardcore.spawn
+  permission-mesage: You do not have permission to use this command
+ setspawn:
+  description: Set the spawn to where you are standing
+  usage: /setspawn
+  permission: hardcore.setspawn
+  permission-message: You do not have permission to use this command
+ setspawntimer:
+  description: Change the spawn timer
+  usage: /setspawntimer
+  permission: hardcore.setspawntimer
+  permission-message: You do not have permission to use this command
+
+permissions:
+ hardcore.spawn:
+  description: Allows you to teleport to spawn
+  default: true
+ hardcore.spawn.instant:
+  description: Allows you to teleport to spawn without waiting for the warmup or cooldown
+  default: op
+ hardcore.setspawn:
+  description: Allows you to set the spawn location
+  default: op
+ hardcore.setspawntimer:
+  description: Allows a user to change the spawn timer
+  default: op
