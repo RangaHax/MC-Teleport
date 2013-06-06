@@ -2,12 +2,14 @@ package mcteleport.timer;
 
 import mcteleport.MCTeleport;
 
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 public class BroadcastTimer extends Thread {
 	
 	Player player;
 	String message;
+	Location startLocation;
 	BroadcastListener listener;
 	long currentTime;
 	int currentIndex;
@@ -33,21 +35,30 @@ public class BroadcastTimer extends Thread {
 			currentIndex--;
 			if (currentIndex == -1) break;
 		}
+		startLocation = player.getLocation();
 		start();
 	}
 	
 	@Override
-	public void run() {
-		long timeToSleep = currentTime-timeIntervals[currentIndex];
-		try{ Thread.sleep(timeToSleep*1000); } catch(Exception e) {/*should probs log this*/ return;}
-		while(currentIndex < timeIntervals.length-1) {
-			if(message != null) {
-				String msg = message.replace("#t", MCTeleport.secondsToString(timeIntervals[currentIndex]));
-				player.sendMessage(msg);
+	public void run() {		
+		while(currentTime > 0) {
+			//check moved
+			Location currentLocation = player.getLocation();
+			if(currentLocation.getX() != startLocation.getX() || currentLocation.getY() != startLocation.getY()) {
+				//player.sendMessage(currentLocation.getX()+":"+startLocation.getX());
+				//player.sendMessage(currentLocation.getY()+":"+startLocation.getY());
+				player.sendMessage("Warmup cancelled");
+				return;
 			}
-			timeToSleep = timeIntervals[currentIndex]-timeIntervals[currentIndex+1];
-			currentIndex++;
-			try{ Thread.sleep(timeToSleep*1000); } catch(Exception e) {/*should probs log this*/ break;}
+			if(currentTime == timeIntervals[currentIndex]) {
+				if(message != null) {
+					String msg = message.replace("#t", MCTeleport.secondsToString(timeIntervals[currentIndex]));
+					player.sendMessage(msg);
+				}
+				currentIndex++;
+			}
+			currentTime--;
+			try{ Thread.sleep(1000); } catch(Exception e) {/*should probs log this*/ break;}
 		}
 		listener.countdownComplete(player);
 	}
