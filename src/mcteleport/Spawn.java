@@ -1,5 +1,8 @@
 package mcteleport;
 
+import mcteleport.timer.BroadcastListener;
+import mcteleport.timer.BroadcastTimer;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -7,8 +10,6 @@ import org.bukkit.command.*;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
-import timer.BroadcastListener;
-import timer.BroadcastTimer;
 
 public class Spawn implements CommandExecutor, BroadcastListener {
 

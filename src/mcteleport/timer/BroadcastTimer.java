@@ -1,4 +1,4 @@
-package timer;
+package mcteleport.timer;
 
 import mcteleport.MCTeleport;
 
