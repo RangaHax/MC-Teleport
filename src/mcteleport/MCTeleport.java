@@ -5,16 +5,20 @@ import java.util.Scanner;
 
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import org.bukkit.plugin.java.JavaPlugin;
  
 public final class MCTeleport extends JavaPlugin {
  
 	
 	public void onEnable(){
-		Spawn spawnExecutor = new Spawn(this.getConfig(), this);
+		Spawn spawnExecutor = new Spawn(this);
 		getCommand("setspawn").setExecutor(spawnExecutor);
 		getCommand("setspawntimer").setExecutor(spawnExecutor);
 		getCommand("spawn").setExecutor(spawnExecutor);
+		
+		Home homeExecutor = new Home(this);
+		//getServer().getPluginManager().registerEvent(event, listener, priority, executor, plugin)
 	}
 	public void onDisable(){}
 	

@@ -16,8 +16,8 @@ public class Spawn implements CommandExecutor, BroadcastListener {
 	private FileConfiguration config;
 	private MCTeleport masterPlugin;
 	
-	public Spawn(FileConfiguration config, MCTeleport master) {
-		this.config = config;
+	public Spawn(MCTeleport master) {
+		this.config = master.getConfig();
 		masterPlugin = master;
 	}
 
